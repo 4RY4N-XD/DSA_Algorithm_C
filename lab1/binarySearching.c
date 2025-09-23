@@ -19,8 +19,9 @@ int binarySearch(int A[],int n, int target ){
     
         if ( A[mid] == target)
         {
-            right = mid -1;
+            // right = mid -1;
             result =  mid;
+            return result;
         }
         else if (A[mid] < target)
         {

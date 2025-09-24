@@ -70,7 +70,6 @@ void reverse_and_swap(char str[]) {
 // Precedence order of Operator
 int precedence(int operator){
     switch (operator) {
-        case '^': return 5;
         case '/': return 4;
         case '*': return 3;
         case '+': return 2;
@@ -99,7 +98,7 @@ void postfix(char str[]){
             }
             pop(); // remove '('
         }
-        else if(str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*' || str[i] == '^'){
+        else if(str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*'){
             while (precedence(peek()) >= precedence(str[i])) {
                 postfixExp[++index] = pop();
             }

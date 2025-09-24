@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+int comparisons = 0;  // to count number of comparisons
+int iterations = 0;   // to count number of merge calls
+
+void printArray(int A[], int l, int r) {
+    for (int i = l; i <= r; i++) {
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+}
+
 void merge(int A[], int l, int m, int r){
     int i = l;
     int j = m +1;
@@ -8,9 +18,9 @@ void merge(int A[], int l, int m, int r){
     int temp[r - l + 1];  // temporary array to store sorted elements
 
     // comparison
-    
     while (i <= m && j <= r)
     {
+        comparisons++;  // increment comparison count
         if (A[i] < A[j]){
             temp[k] = A[i];
             i++;
@@ -21,7 +31,6 @@ void merge(int A[], int l, int m, int r){
         k++;
     }
     // if only remaining elements in left subarray
-
     if (i > m)
     {
         while (j <= r)
@@ -30,7 +39,7 @@ void merge(int A[], int l, int m, int r){
             j++;
             k++;
         }
-        
+
     }
     // if only remaining elements in right subarray
     else{
@@ -47,6 +56,10 @@ void merge(int A[], int l, int m, int r){
     {
         A[p] = temp[p];
     }
+
+    iterations++;  // increment iteration count
+    printf("After iteration %d (merged from index %d to %d): ", iterations, l, r);
+    printArray(A, l, r);
 }
 
 void mergeSort(int A[], int l, int r) {
@@ -71,10 +84,13 @@ int main() {
 
     mergeSort(A, 0, n - 1); 
 
-    printf("Sorted array: ");
+    printf("\nSorted array: ");
     for (int i = 0; i < n; i++) {
         printf("%d ", A[i]);
     }
+
+    printf("\nTotal comparisons: %d", comparisons);
+    printf("\nTotal iterations: %d\n", iterations);
 
     return 0;
 }

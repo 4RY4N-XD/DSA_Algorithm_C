@@ -16,6 +16,7 @@ void selectionSort(int A[], int n) {
     for (int i = 0; i < n; i++)
     {
         int smallest_pos = smallest(A, i , n);
+        printf("Smallest value is: %d \n", A[smallest_pos]);
         if(smallest_pos != i){
             int temp = A[i];
             A[i] = A[smallest_pos];

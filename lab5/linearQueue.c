@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX 100
+#define MAX 5
 
 int queue[MAX];
 int front = -1;
@@ -9,6 +9,7 @@ int rear = -1;
 void enqueue(int num){
     if(front == MAX -1){
         printf("Queue Overflow \n");
+        return; //bcoz it keep adding even after it reach to MAX idk why but there is smthg like it adding to place after circularQueue array
     }
     else if(front == -1 && rear == -1){
         front = 0;

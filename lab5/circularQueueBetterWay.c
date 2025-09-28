@@ -17,7 +17,10 @@ void enqueue(int num) {
     if (front == -1) {
         front = rear = 0;
     } else {
-        rear = (rear + 1) % MAX;
+        rear = (rear + 1) % MAX; 
+        //this is working such that rear max go till max so if we divide smthg from smthg and 
+        // take remainder it goes max till the number 1 less than that, like if it got reached to that
+        //  number it automatically get back to 0
     }
 
     circularQueue[rear] = num;

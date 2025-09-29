@@ -38,7 +38,7 @@ int peek() {
     }
 }
 
-// Helper to flip any bracket
+// Helper to flip any bracket and return default thing as it is
 char flip_bracket(char c) {
     switch (c) {
         case '(': return ')';

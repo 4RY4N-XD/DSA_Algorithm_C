@@ -16,7 +16,7 @@ void push(int value) {
         printf("Stack Overflow!\n");
     else {
         stack[++top] = value;
-        printf("[ACTION] Pushed %d onto the stack.\n", value);
+        printf("[ACTION] Pushed %c onto the stack.\n", value);
     }
 }
 
@@ -27,7 +27,7 @@ int pop() {
         return -1;
     } else {
         int val = stack[top--];
-        printf("[ACTION] Popped %d from the stack.\n", val);
+        printf("[ACTION] Popped %c from the stack.\n", val);
         return val;
     }
 }

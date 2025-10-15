@@ -8,6 +8,7 @@ int top = -1;
 // Creating a Stack 
 void create(){
     top = -1;
+    printf("[INFO] Stack created.\n");
 }
 
 // Push operation
@@ -16,6 +17,7 @@ void push(int value) {
         printf("Stack Overflow!\n");
     else {
         stack[++top] = value;
+        printf("[ACTION] Pushed '%c' onto the stack.\n", value);
     }
 }
 
@@ -25,7 +27,9 @@ int pop() {
         printf("Stack Underflow!\n");
         return -1;
     } else {
-        return stack[top--];
+        int val = stack[top--];
+        printf("[ACTION] Popped '%c' from the stack.\n", val);
+        return val;
     }
 }
 
@@ -53,6 +57,7 @@ char flip_bracket(char c) {
 
 // Reverse string AND swap all brackets
 void reverse_and_swap(char str[]) {
+    printf("[PROCESS] Reversing and swapping brackets...\n");
     int start = 0, end = strlen(str) - 1;
     while (start < end) {
         char a = str[start];
@@ -65,6 +70,7 @@ void reverse_and_swap(char str[]) {
     if (start == end) {
         str[start] = flip_bracket(str[start]);
     }
+    printf("[RESULT] After reverse and swap: %s\n", str);
 }
 
 // Precedence order of Operator
@@ -80,6 +86,7 @@ int precedence(int operator){
 
 // Reversed expression to postfix
 void postfix(char str[]){
+    printf("[PROCESS] Converting to postfix...\n");
     create();
     push('(');
     int index = -1;
@@ -90,21 +97,25 @@ void postfix(char str[]){
 
     for(int i = 0; str[i] != '\0'; i++){
         if(str[i] == '('){
+            printf("[SCAN] Found '('\n");
             push(str[i]);
         }
         else if(str[i] == ')'){
+            printf("[SCAN] Found ')'\n");
             while (peek() != '(') {
                 postfixExp[++index] = pop();
             }
             pop(); // remove '('
         }
         else if(str[i] == '+' || str[i] == '-' || str[i] == '/' || str[i] == '*'){
+            printf("[SCAN] Found operator '%c'\n", str[i]);
             while (precedence(peek()) >= precedence(str[i])) {
                 postfixExp[++index] = pop();
             }
             push(str[i]);
         }
         else {
+            printf("[SCAN] Found operand '%c'\n", str[i]);
             postfixExp[++index] = str[i];
         }
     }
@@ -115,10 +126,14 @@ void postfix(char str[]){
     postfixExp[++index] = '\0';
 
     strcpy(str, postfixExp);
+    printf("[RESULT] Postfix expression: %s\n", str);
 }
 
 int main() {
     char exp[MAX];
+    printf("=====================================\n");
+    printf("   Infix to Prefix Converter\n");
+    printf("=====================================\n");
     printf("Enter an expression: ");
     scanf("%s", exp);
 

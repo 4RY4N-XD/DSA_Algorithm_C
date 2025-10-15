@@ -1,2 +1,6 @@
-Lab1 == "binary Search" , "linear Search" , "Bubble Sort" \n
+Lab1 == "binary Search" , "linear Search" , "Bubble Sort"
 Lab2 == "insertion sort" , "merge sort", "selection sort"
+Lab3 == "quick sort" , "Stack basic Operation"
+Lab4 == "Parenthesis Checker", "Infix to Prefix", "Evaluation of Prefix"
+Lab5 == "Circular Queue", "Linear Queue", "Priority Queue"
+LabOtherQueue == "DEqueue"

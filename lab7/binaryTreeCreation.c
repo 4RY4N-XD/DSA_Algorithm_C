@@ -20,19 +20,71 @@ struct Node* createNode(int value) {
     return newNode;
 }
 
-// Insert node into the binary tree (recursive, user-defined structure)
-struct Node* insert(struct Node* root, int value) {
-    if (root == NULL) {
-        return createNode(value);
-    }
+// Queue structure for level-order insertion
+struct QueueNode {
+    struct Node* treeNode;
+    struct QueueNode* next;
+};
 
-    if (value < root->data) {
-        root->left = insert(root->left, value);
+struct Queue {
+    struct QueueNode* front;
+    struct QueueNode* rear;
+};
+
+// Queue operations
+void enqueue(struct Queue* q, struct Node* node) {
+    struct QueueNode* temp = (struct QueueNode*)malloc(sizeof(struct QueueNode));
+    temp->treeNode = node;
+    temp->next = NULL;
+    if (q->rear) {
+        q->rear->next = temp;
+        q->rear = temp;
     } else {
-        root->right = insert(root->right, value);
+        q->front = q->rear = temp;
+    }
+}
+
+struct Node* dequeue(struct Queue* q) {
+    if (!q->front) return NULL;
+    struct QueueNode* temp = q->front;
+    struct Node* node = temp->treeNode;
+    q->front = q->front->next;
+    if (!q->front) q->rear = NULL;
+    free(temp);
+    return node;
+}
+
+int isEmpty(struct Queue* q) {
+    return q->front == NULL;
+}
+
+// Insert node into general binary tree using level-order
+void insert(struct Node** root, int value) {
+    struct Node* newNode = createNode(value);
+    if (*root == NULL) {
+        *root = newNode;
+        return;
     }
 
-    return root;
+    struct Queue q = {NULL, NULL};
+    enqueue(&q, *root);
+
+    while (!isEmpty(&q)) {
+        struct Node* temp = dequeue(&q);
+        if (!temp->left) {
+            temp->left = newNode;
+            break;
+        } else {
+            enqueue(&q, temp->left);
+        }
+
+        if (!temp->right) {
+            temp->right = newNode;
+            break;
+        } else {
+            enqueue(&q, temp->right);
+        }
+    }
 }
 
 // In-order traversal to print the tree
@@ -64,7 +116,7 @@ int main() {
     printf("Enter %d values:\n", n);
     for (int i = 0; i < n; i++) {
         scanf("%d", &value);
-        root = insert(root, value);
+        insert(&root, value);
     }
 
     printf("In-order traversal of the binary tree:\n");
@@ -73,5 +125,4 @@ int main() {
 
     freeTree(root);
     return 0;
-
 }
